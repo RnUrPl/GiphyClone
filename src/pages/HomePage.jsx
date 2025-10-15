@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Gif from '../components/Gif'
 import { GifState } from '../context'
+import Filter from '../components/Filter'
 
 const HomePage = () => {
 
@@ -20,11 +21,14 @@ const HomePage = () => {
         fetchGifs()
       },[filter])
   return (
-    <div className='columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2'>
-      {gifs.map((gif) => {
-        return <Gif gif={gif} key={gif.title}/>
-      })}
-    </div>
+    <>
+      <Filter showTrending/>
+      <div className='columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2'>
+        {gifs.map((gif) => {
+          return <Gif gif={gif} key={gif.title}/>
+        })}
+      </div>
+    </>
   )
 }
 
