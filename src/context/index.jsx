@@ -22,6 +22,20 @@ const GifProvider = ({children}) => {
           }
     }
 
+    
+
+    const fetchSuggestion = async (query) => {
+        const response = await fetch(
+            `https://api.giphy.com/v1/gifs/search/tags?api_key=${import.meta.env.VITE_GIPHY_API}&q=${query}&limit=5`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        return result.data;
+      };
+ 
+
     useEffect(() => {
         const fav = JSON.parse(localStorage.getItem("favoriteGIFs")) || [];
         setFav(fav);
@@ -29,7 +43,9 @@ const GifProvider = ({children}) => {
 
     const giphy = new GiphyFetch(import.meta.env.VITE_GIPHY_API)
 
-    return <GifContext.Provider value={{giphy, gifs, setGifs, filter, setFilter, fav,addToFav}}>{children}</GifContext.Provider>
+   
+
+    return <GifContext.Provider value={{giphy, gifs, setGifs, filter, setFilter, fav,addToFav, fetchSuggestion}}>{children}</GifContext.Provider>
 }
 
 export const GifState = () =>{

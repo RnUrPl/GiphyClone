@@ -29,6 +29,7 @@ const GifPage = () => {
       });
       setRelatedGifs(related)
       setGif(data)
+      console.log(data)
     } catch (error) {
       console.error("Error: something went wrong...", error)
     } finally {
@@ -43,7 +44,7 @@ const GifPage = () => {
     }
 
     fetchGif()
-  },[])
+  },[type, slug])
 
   const shareGif = () => {
     // Assignment

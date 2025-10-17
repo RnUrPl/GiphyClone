@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Header from '../components/Header'
 
 
-const AppUI = () => {
+const MainLayout = () => {
   return (
     <div className="bg-white text-black min-h-screen">
         <div className="container px-6 py-4 mx-auto">
@@ -16,4 +16,4 @@ const AppUI = () => {
   )
 }
 
-export default AppUI
+export default MainLayout

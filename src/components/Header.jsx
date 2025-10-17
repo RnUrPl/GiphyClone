@@ -9,16 +9,20 @@ const Header = () => {
     const [categories, setCategories] = useState()
     const [showCategories, setShowCategories] = useState(false)
 
-    const {giphy, gifs, setGifs, filter, setFilter, fav} = GifState()
+    const {giphy, fav} = GifState()
 
     const fetchCategories = async () =>  {
       const {data} = await giphy.categories()
       setCategories(data)
     }
 
+   
+
     useEffect(() =>  {
       fetchCategories()
     },[])
+
+    
 
 
   return (
@@ -93,7 +97,9 @@ const Header = () => {
           </div>}
           
        </div>
-       <Search/>
+       <Search 
+
+       />
     </nav>
   )
 }

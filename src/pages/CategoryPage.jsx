@@ -7,10 +7,19 @@ import Socials from '../components/Socials'
 const CategoryPage = () => {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState()
-
+  const navigate = useNavigate()
   const {category} = useParams()
 
   const {giphy} = GifState()
+
+  const validCategory = async () => {
+    await giphy.categories?.find(
+    (c) => c.name_encoded === category
+  )}
+
+  if (!validCategory) {
+    return navigate('/') 
+  }
 
     const fetchResults = async () => {
       setLoading(true)
