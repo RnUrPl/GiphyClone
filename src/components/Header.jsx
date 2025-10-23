@@ -3,6 +3,7 @@ import { HiEllipsisVertical, HiMiniBars3BottomRight } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 import { GifState } from '../context'
 import Search from './Search'
+import TrendingSearches from './TrendingSearches'
 
 const Header = () => {
 
@@ -100,6 +101,7 @@ const Header = () => {
        <Search 
 
        />
+       
     </nav>
   )
 }

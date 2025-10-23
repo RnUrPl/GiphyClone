@@ -35,7 +35,7 @@ const Filter = ({alignLeft = false , showTrending = false}) => {
         {showTrending && (<span className='flex gap-2'>
             
                 {showTrending && (
-                    <HiMiniArrowTrendingUp size={30} className='text-teal-200'/>
+                    <HiMiniArrowTrendingUp size={30} className='text-blue-400'/>
                 )}
                 <span className='font-semibold text-gray-400'>Trending</span>
             

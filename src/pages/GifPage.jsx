@@ -7,6 +7,7 @@ import Socials from '../components/Socials'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { FaPaperPlane } from 'react-icons/fa6'
 import { IoCodeSharp } from 'react-icons/io5'
+import Loader from '../components/Loader'
 
 const GifPage = () => {
   const {type, slug} = useParams()
@@ -31,7 +32,7 @@ const GifPage = () => {
       setGif(data)
       console.log(data)
     } catch (error) {
-      console.error("Error: something went wrong...", error)
+      console.error( error)
     } finally {
       setLoading(false)
     }
@@ -47,14 +48,20 @@ const GifPage = () => {
   },[type, slug])
 
   const shareGif = () => {
-    // Assignment
+ 
   };
 
   const EmbedGif = () => {
-    // Assignment
+
   };
 
   return (
+    <>
+    {loading ? (
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <Loader/>
+          </div>
+           ) : (
     <div className='grid grid-cols-4 my-10 gap-4'>
       <div className='hidden sm:block'> 
         {gif?.user && (
@@ -147,14 +154,14 @@ const GifPage = () => {
               Favourite
             </button>
             <button
-              onClick={shareGif} // Assignment
+              onClick={shareGif} 
               className="flex gap-6 items-center font-bold text-lg"
             >
               <FaPaperPlane size={20} />
               Share
             </button>
             <button
-              onClick={EmbedGif} // Assignment
+              onClick={EmbedGif} 
               className="flex gap-5 items-center font-bold text-lg"
             >
               <IoCodeSharp size={25} />
@@ -173,6 +180,8 @@ const GifPage = () => {
         </div>
       </div>
     </div>
+    )}
+    </>
   )
 }
 

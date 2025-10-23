@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { GifState } from '../context'
 import Gif from '../components/Gif'
 import Socials from '../components/Socials'
+import Loader from '../components/Loader'
 
 const CategoryPage = () => {
   const [results, setResults] = useState([])
@@ -27,7 +28,7 @@ const CategoryPage = () => {
         const { data } = await giphy.gifs(category, category)
         setResults(data)
       } catch (error) {
-        console.error("Error: something went wrong...", error)
+        console.error( error)
       } finally {
         setLoading(false)
       }
@@ -38,6 +39,12 @@ const CategoryPage = () => {
     },[category])
 
   return (
+    <>
+    {loading ? (
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <Loader/>
+          </div>
+        ) : (
     <div className="flex flex-col sm:flex-row gap-5 my-4">
       <div className="w-full sm:w-72">
         {results.length > 0 && <Gif gif={results[0]}/>}
@@ -66,9 +73,9 @@ const CategoryPage = () => {
          </div>
       )}
       </div>
-
-    
     </div>
+    )}
+    </>
   )
 }
 

@@ -13,19 +13,19 @@ const Search = () => {
   const dataKey = "name"
   
   const getSuggestions = async (query) => {
-  
+    
     setLoading(true);
     try {
       let result = await fetchSuggestion(query)
       setSuggestions(result)
-    } catch (err) {
-     
+    } catch(error) {
+      console.error(error)
       setSuggestions([])
     } finally {
       setLoading(false)
     }
   };
-
+  
   useEffect(() => {
     if (inputValue.length > 0) {
       getSuggestionsDebounced(inputValue)
@@ -34,16 +34,12 @@ const Search = () => {
       setSuggestions([])
     }
   }, [inputValue])
-
+  
   const getSuggestionsDebounced = useCallback(
     debounce(getSuggestions, 300),
     []
   )
-
-  const search = async() => {
-    if(inputValue.trim() === "") return 
-    navigate(`/search/${inputValue}`)
-  } 
+  
   
   const getHighlightedText = (text, inputValue) => {
     const parts = text.split(new RegExp(`(${inputValue})`, "gi"))
@@ -59,11 +55,18 @@ const Search = () => {
       </span>
     )
   }
-  const handleSearchClick = () => {
-    search()
-    setSuggestions([])
-  }
   
+  const handleSuggestionClick = (term) => {
+    if (!term?.trim()) return
+    navigate(`/search/${term}`)
+    setInputValue("")
+  };
+  
+  const handleSearchClick = () => {
+    if(inputValue.trim() === "") return 
+    navigate(`/search/${inputValue}`)
+    setInputValue("")
+  } 
   return (
     <div className="flex relative">
       <input
@@ -82,7 +85,7 @@ const Search = () => {
         </button>
       )}
       <button
-        onClick={search}
+        onClick={handleSearchClick}
         className="bg-gradient-to-tr from-pink-600 to-pink-400 text-white px-4 py-2 rounded-tr rounded-br"
       >
         <HiOutlineMagnifyingGlass size={35} className="-scale-x-100" />
@@ -95,7 +98,7 @@ const Search = () => {
                 return (
                   <li
                     key={index}
-                    onClick={handleSearchClick}
+                    onClick={() => handleSuggestionClick(currSuggestion)}
                   
                     className="p-2.5 cursor-pointer hover:bg-gray-100 aria-selected:bg-gray-100"
                     id={`suggestion-${index}`}

@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom'
 import { GifState } from '../context'
 import Filter from '../components/Filter'
 import Gif from '../components/Gif'
+import Loader from '../components/Loader'
+import SuggestionList from '../components/SuggestionList'
 
 const SearchPage = () => {
   const[searchResults, setSearchResults] = useState([])
   const {query} = useParams()
   const [loading, setLoading] = useState(false)
-
   const{giphy, filter} = GifState()
 
 
@@ -23,7 +24,7 @@ const SearchPage = () => {
       })
       setSearchResults(data)
     } catch (error) {
-      console.error("Error: cannot load Gifs", error)
+      console.error(error)
     } finally {
       setLoading(false)
     }
@@ -38,6 +39,13 @@ const SearchPage = () => {
     <div>
       <h2 className="text-5xl pb-3 font-extrabold">{query}</h2>
       <Filter alignLeft={true}/>
+       {loading ? (
+            <div className="flex items-center justify-center min-h-[60vh]">
+              <Loader/>
+            </div>
+          ) : (
+      <>
+      <SuggestionList query = {query}/>
       {searchResults.length > 0 ? (
          <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
          {searchResults.map((gif) => (
@@ -46,9 +54,11 @@ const SearchPage = () => {
        </div>
       ) : (
       <span>
-      No GIFs found for {query}. Try searching for Stickers instead?
-    </span>
-)}
+        No GIFs found for {query}. Try searching for Stickers instead?
+      </span>
+      )}
+      </> 
+       )}
     </div>
   )
 }

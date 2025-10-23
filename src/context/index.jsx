@@ -27,13 +27,24 @@ const GifProvider = ({children}) => {
     const fetchSuggestion = async (query) => {
         const response = await fetch(
             `https://api.giphy.com/v1/gifs/search/tags?api_key=${import.meta.env.VITE_GIPHY_API}&q=${query}&limit=5`
-        );
+        )
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Cant Fetch Suggestions");
         }
         const result = await response.json();
         return result.data;
-      };
+      }
+
+      const fetchTrendingSearches = async () => {
+        const response = await fetch(
+          `https://api.giphy.com/v1/trending/searches?api_key=${import.meta.env.VITE_GIPHY_API}&limit=5`
+        )
+        if (!response.ok) {
+          throw new Error("Cant fetch Trending Searches");
+        }
+        const result = await response.json();
+        return result.data;
+      }
  
 
     useEffect(() => {
@@ -45,7 +56,7 @@ const GifProvider = ({children}) => {
 
    
 
-    return <GifContext.Provider value={{giphy, gifs, setGifs, filter, setFilter, fav,addToFav, fetchSuggestion}}>{children}</GifContext.Provider>
+    return <GifContext.Provider value={{giphy, gifs, setGifs, filter, setFilter, fav,addToFav, fetchSuggestion, fetchTrendingSearches}}>{children}</GifContext.Provider>
 }
 
 export const GifState = () =>{
