@@ -3,7 +3,7 @@ import { GifState } from '../context'
 import { useNavigate } from 'react-router-dom'
 import { HiMiniArrowTrendingUp } from 'react-icons/hi2'
 
-const SuggestionList = (query) => {
+const SuggestionList = ({query}) => {
     const [loading, setLoading] = useState(false)
    const {fetchSuggestion} = GifState()
     const navigate = useNavigate()
@@ -63,9 +63,9 @@ const SuggestionList = (query) => {
                 transition 
                 whitespace-nowrap
               "
-              onClick ={() => handleTrendClick(term)}
+              onClick ={() => handleTrendClick(term.name)}
             >
-              {term}
+              {term.name}
             </span>
           )})}
           </React.Fragment>

@@ -3,7 +3,7 @@ import React from "react";
 export default function GiphyishLoader({
   size = 120,
   speed = 1.1,
-  label = "Загрузка GIF...",
+  label = "Loading GIF...",
 }) {
   return (
     <div
